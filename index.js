@@ -24,7 +24,7 @@ async function run() {
     const checkCollection = client.db("AllQuiz").collection("CheckQuiz");
 
     // get all quiz
-    app.get("/allQuiz/", async (req, res) => {
+    app.get("/allQuiz", async (req, res) => {
       const query = {};
       const singleQuiz = await quizCollection.find(query).toArray();
       res.send(singleQuiz);
@@ -108,7 +108,7 @@ async function run() {
       res.send(result);
     });
 
-    
+
   } finally {
   }
 }
