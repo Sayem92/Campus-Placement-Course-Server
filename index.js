@@ -85,6 +85,29 @@ async function run() {
       res.send(result);
     });
 
+    // check quiz api
+    app.put("/checkQuiz/:id", async (req, res) => {
+      const id = req.params.id;
+      const check = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: check,
+      };
+      const result = await checkCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+      res.send(result);
+    });
+
+    // when reload the page then get the check quiz
+    app.get("/checkQuiz", async (req, res) => {
+      const result = await checkCollection.find({}).toArray();
+      res.send(result);
+    });
+
     
   } finally {
   }
