@@ -30,7 +30,20 @@ async function run() {
       res.send(singleQuiz);
     });
 
-    
+    // seen first quiz
+    app.put("/seenQuiz/:id", async (req, res) => {
+      const id = req.params.id;
+      const seen = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: seen,
+      };
+      const result = await quizCollection.updateOne(filter, updateDoc, options);
+      res.send(result);
+    });
+
+   
     
   } finally {
   }
