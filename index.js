@@ -23,6 +23,14 @@ async function run() {
     const quizCollection = client.db("AllQuiz").collection("QuizDetails");
     const checkCollection = client.db("AllQuiz").collection("CheckQuiz");
 
+    // get all quiz
+    app.get("/allQuiz/", async (req, res) => {
+      const query = {};
+      const singleQuiz = await quizCollection.find(query).toArray();
+      res.send(singleQuiz);
+    });
+
+    
     
   } finally {
   }
