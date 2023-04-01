@@ -56,7 +56,20 @@ async function run() {
       res.send(result);
     });
 
-    
+    // change theme
+    app.put("/themeQuiz/:id", async (req, res) => {
+      const id = req.params.id;
+      const theme = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: theme,
+      };
+      const result = await quizCollection.updateOne(filter, updateDoc, options);
+      res.send(result);
+    });
+
+   
     
   } finally {
   }
