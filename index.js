@@ -69,7 +69,22 @@ async function run() {
       res.send(result);
     });
 
-   
+    // reset theme
+    app.put("/resetQuiz/:id", async (req, res) => {
+      const id = req.params.id;
+      const theme = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: theme,
+      };
+      const result = await quizCollection.updateOne(filter, updateDoc, options);
+
+      const deleted = await checkCollection.deleteOne(filter);
+      console.log(deleted);
+      res.send(result);
+    });
+
     
   } finally {
   }
