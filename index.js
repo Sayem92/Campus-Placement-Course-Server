@@ -43,7 +43,20 @@ async function run() {
       res.send(result);
     });
 
-   
+    // mark for quiz
+    app.put("/markQuiz/:id", async (req, res) => {
+      const id = req.params.id;
+      const mark = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: mark,
+      };
+      const result = await quizCollection.updateOne(filter, updateDoc, options);
+      res.send(result);
+    });
+
+    
     
   } finally {
   }
